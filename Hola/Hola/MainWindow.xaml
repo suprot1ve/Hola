@@ -5,8 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hola"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Hola" SizeToContent="WidthAndHeight"
+        MinWidth="800" MinHeight="400" WindowStartupLocation="CenterScreen">
     <Grid>
         
+        <!-- Rows and Columns Definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Contacts -->
+        <ListBox Grid.Column="0" Grid.RowSpan="3" HorizontalContentAlignment="Center" Margin="5">
+            <Button Content="Contact #1" Margin="5"/>
+            <Button Content="Contact #2" Margin="5"/>
+            <Button Content="Contact #3" Margin="5"/>
+        </ListBox>
+        
+        <!-- Button for add contact -->
+        <Button Grid.Column="0" Grid.Row="4" IsEnabled="False" Name="btnAddContact" Content="Add Contact" Margin="5"/>
+        
+        <!-- Labes -->
+        <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Port for send" Margin="5"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" TextAlignment="Center" Text="Port for receive" Margin="5"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Center" Text="IP for receive" Margin="5"/>
+        <TextBlock Grid.Row="0" Grid.Column="4" TextAlignment="Center" Text="Your name" Margin="5"/>
+
+        <!-- Input data for connect -->
+        <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Name="tbRemotePort" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="2" TextAlignment="Center" Name="tbLocalPort" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="3" TextAlignment="Center" Name="tbRemoteAddress" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="4" TextAlignment="Center" Name="tbUserName" Margin="5"/>
+        <Button Grid.Row="1" Grid.Column="5" Name="btnConDiscon" Content="Connect" Margin="5"/>
+
+        <!-- List for show messages-->
+        <ListBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" Name="lbChat" Margin="5"/>
+
+        <!-- Tools for send messages-->
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbMessage" Margin="5"/>
+        <Button Grid.Row="3" Grid.Column="5" Name="btnSend" Content="Send" IsEnabled="False" Margin="5"/>
     </Grid>
 </Window>
