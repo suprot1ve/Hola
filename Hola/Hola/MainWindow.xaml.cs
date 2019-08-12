@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Hola
 {
@@ -32,9 +38,10 @@ namespace Hola
 				btnAddContact.IsEnabled = true;
 				lbChat.Items.Add($"Hi {userName}! You joined to chat!");
 				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
-				//Send message about new connect
+				SendMessage("joined to chat");
 
-				//Run receive task
+				Task receiveTask = new Task(ReceiveMessages);
+				receiveTask.Start();
 			}
 			catch (ArgumentNullException)
 			{
@@ -73,7 +80,7 @@ namespace Hola
 		{
 			try
 			{
-				//Send message about disconnect
+				SendMessage("leaved to chat");
 				ResetInputData();
 				btnConDiscon.Content = "Connect";
 				isConnected = false;
@@ -96,6 +103,94 @@ namespace Hola
 				ConnectUser();
 			else
 				DisconnectUser();
+		}
+
+		private void SendMessage(string msg)
+		{
+			UdpClient sender = null;
+			try
+			{
+				sender = new UdpClient();
+				byte[] buffer = Encoding.Unicode.GetBytes($"{userName}: {msg}");
+				sender.Send(buffer, buffer.Length, new IPEndPoint(currentContact.RemoteAddress, currentContact.RemotePort));
+				if (tbMessage.Text != "")
+					lbChat.Items.Add($"You: {tbMessage.Text}");
+				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
+			}
+			catch (Exception ex)
+			{
+				lbChat.Items.Add(ex.Message);
+				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
+			}
+			finally
+			{
+				if (sender != null)
+					sender.Close();
+			}
+		}
+
+		private delegate void ReceiveMessagesOutHandler(string msg);
+
+		private void ReciveMessagesOut(string msg)
+		{
+			if (Dispatcher.Thread == Thread.CurrentThread)
+			{
+				lbChat.Items.Add(msg);
+				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
+			}
+			else
+			{
+				Dispatcher.Invoke(new ReceiveMessagesOutHandler(ReciveMessagesOut), new object[] { msg });
+			}
+		}
+
+		private void ReceiveMessages()
+		{
+			ReciveMessagesOut("Receiver messages activated!");
+			UdpClient receiver = null;
+			receptionIsWorked = true;
+			try
+			{
+				receiver = new UdpClient(currentContact.LocalPort);
+				IPEndPoint remoteIp = null;
+
+				while (receptionIsWorked)
+				{
+					byte[] buffer = receiver.Receive(ref remoteIp);
+					string msg = Encoding.Unicode.GetString(buffer);
+					ReciveMessagesOut(msg);
+				}
+			}
+			catch (Exception ex)
+			{
+				ReciveMessagesOut(ex.Message);
+			}
+			finally
+			{
+				if (receiver != null)
+					receiver.Close();
+			}
+		}
+
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			receptionIsWorked = false;
+		}
+
+		private void btnSend_Click(object sender, RoutedEventArgs e)
+		{
+			if (tbMessage.Text != "")
+				SendMessage(tbMessage.Text);
+			tbMessage.Text = String.Empty;
+		}
+
+		private void tbMessage_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				SendMessage(tbMessage.Text);
+				tbMessage.Text = String.Empty;
+			}
 		}
 	}
 }

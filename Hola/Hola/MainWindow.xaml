@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Hola"
         mc:Ignorable="d"
         Title="Hola" SizeToContent="WidthAndHeight"
-        MinWidth="800" MinHeight="400" WindowStartupLocation="CenterScreen">
+        MinWidth="800" MinHeight="400" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         
         <!-- Rows and Columns Definitions-->
@@ -52,7 +52,7 @@
         <ListBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" Name="lbChat" Margin="5"/>
 
         <!-- Tools for send messages-->
-        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbMessage" IsEnabled="False" Margin="5"/>
-        <Button Grid.Row="3" Grid.Column="5" Name="btnSend" Content="Send" IsEnabled="False" Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbMessage" IsEnabled="False" Margin="5" KeyDown="tbMessage_KeyDown"/>
+        <Button Grid.Row="3" Grid.Column="5" Name="btnSend" Content="Send" IsEnabled="False" Margin="5" Click="btnSend_Click"/>
     </Grid>
 </Window>
