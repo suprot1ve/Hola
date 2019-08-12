@@ -38,7 +38,7 @@
         <!-- Labes -->
         <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Port for send" Margin="5"/>
         <TextBlock Grid.Row="0" Grid.Column="2" TextAlignment="Center" Text="Port for receive" Margin="5"/>
-        <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Center" Text="IP for receive" Margin="5"/>
+        <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Center" Text="IP for send" Margin="5"/>
         <TextBlock Grid.Row="0" Grid.Column="4" TextAlignment="Center" Text="Your name" Margin="5"/>
 
         <!-- Input data for connect -->
@@ -46,13 +46,13 @@
         <TextBox Grid.Row="1" Grid.Column="2" TextAlignment="Center" Name="tbLocalPort" Margin="5"/>
         <TextBox Grid.Row="1" Grid.Column="3" TextAlignment="Center" Name="tbRemoteAddress" Margin="5"/>
         <TextBox Grid.Row="1" Grid.Column="4" TextAlignment="Center" Name="tbUserName" Margin="5"/>
-        <Button Grid.Row="1" Grid.Column="5" Name="btnConDiscon" Content="Connect" Margin="5"/>
+        <Button Grid.Row="1" Grid.Column="5" Name="btnConDiscon" Content="Connect" Margin="5" Click="btnConDiscon_Click"/>
 
         <!-- List for show messages-->
         <ListBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" Name="lbChat" Margin="5"/>
 
         <!-- Tools for send messages-->
-        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbMessage" Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbMessage" IsEnabled="False" Margin="5"/>
         <Button Grid.Row="3" Grid.Column="5" Name="btnSend" Content="Send" IsEnabled="False" Margin="5"/>
     </Grid>
 </Window>
