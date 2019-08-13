@@ -6,6 +6,8 @@ namespace Hola
 {
 	public class Contact : INotifyPropertyChanged
 	{
+		public Contact(){}
+
 		public Contact(string remotePort, string localPort, string remoteAddress)
 		{
 			RemotePort = Int32.Parse(remotePort);

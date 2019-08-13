@@ -13,6 +13,6 @@ namespace Hola
 			DataContext = Contact;
 		}
 
-		private void OK_Click(object sender, RoutedEventArgs e) => DataContext = true;
+		private void OK_Click(object sender, RoutedEventArgs e) => DialogResult = true;
 	}
 }
