@@ -308,5 +308,35 @@ namespace Hola
 				return HitTestResultBehavior.Continue;
 			}, new PointHitTestParameters(point));
 		}
+
+		private void btnConnectContact_Click(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				string prevName = userName;
+				if (isConnected)
+					DisconnectUser();
+				if (lbContacts.SelectedItem == null) return;
+				Contact contact = lbContacts.SelectedItem as Contact;
+
+				EnterNameWindow enterNameWindow = new EnterNameWindow(prevName);
+
+				if (enterNameWindow.ShowDialog() == true)
+				{
+					tbUserName.Text = enterNameWindow.UserName;
+					tbRemotePort.Text = contact.RemotePort.ToString();
+					tbLocalPort.Text = contact.LocalPort.ToString();
+					tbRemoteAddress.Text = contact.RemoteAddress;
+					ConnectUser();
+				}
+			}
+			catch (Exception ex)
+			{
+				ResetInputData();
+				lbChat.Items.Add(ex.Message);
+				lbChat.Items.Add(ex.StackTrace);
+				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
+			}
+		}
 	}
 }
