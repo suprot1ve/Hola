@@ -26,9 +26,9 @@ namespace Hola
 		{
 			try
 			{
-				currentContact = new Contact(tbRemotePort.Text, tbLocalPort.Text, tbRemoteAddress.Text);
-				if (tbUserName.Text == string.Empty)
+				if (tbUserName.Text == string.Empty || tbRemoteAddress.Text == string.Empty)
 					throw new ArgumentNullException();
+				currentContact = new Contact(tbRemotePort.Text, tbLocalPort.Text, tbRemoteAddress.Text);
 				userName = tbUserName.Text;
 
 				btnConDiscon.Content = "Disconnect";
@@ -112,7 +112,7 @@ namespace Hola
 			{
 				sender = new UdpClient();
 				byte[] buffer = Encoding.Unicode.GetBytes($"{userName}: {msg}");
-				sender.Send(buffer, buffer.Length, new IPEndPoint(currentContact.RemoteAddress, currentContact.RemotePort));
+				sender.Send(buffer, buffer.Length, currentContact.RemoteAddress, currentContact.RemotePort);
 				if (tbMessage.Text != "")
 					lbChat.Items.Add($"You: {tbMessage.Text}");
 				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);

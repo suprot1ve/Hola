@@ -1,19 +1,67 @@
 ﻿using System;
-using System.Net;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Hola
 {
-	public class Contact
+	public class Contact : INotifyPropertyChanged
 	{
 		public Contact(string remotePort, string localPort, string remoteAddress)
 		{
 			RemotePort = Int32.Parse(remotePort);
 			LocalPort = Int32.Parse(localPort);
-			RemoteAddress = IPAddress.Parse(remoteAddress);
+			RemoteAddress = remoteAddress;
 		}
 
-		protected internal int RemotePort { get; private set; }
-		protected internal int LocalPort { get; private set; }
-		protected internal IPAddress RemoteAddress { get; private set; }
+		private string name;
+		private int remotePort;
+		private int localPort;
+		private string remoteAddress;
+
+		public int Id { get; set; }
+
+		public string Name
+		{
+			get { return name; }
+			set
+			{
+				name = value;
+				OnPropertyChanged("Name");
+			}
+		}
+
+		public int RemotePort
+		{
+			get { return remotePort; }
+			set
+			{
+				remotePort = value;
+				OnPropertyChanged("RemotePort");
+			}
+		}
+
+		public int LocalPort
+		{
+			get { return localPort; }
+			set
+			{
+				localPort = value;
+				OnPropertyChanged("LocalPort");
+			}
+		}
+
+		public string RemoteAddress
+		{
+			get { return remoteAddress; }
+			set
+			{
+				remoteAddress = value;
+				OnPropertyChanged("RemoteAddress");
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+		public void OnPropertyChanged([CallerMemberName]string prop = "") 
+			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 	}
 }
