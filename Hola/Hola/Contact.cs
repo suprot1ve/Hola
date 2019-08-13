@@ -11,6 +11,15 @@ namespace Hola
 			RemotePort = Int32.Parse(remotePort);
 			LocalPort = Int32.Parse(localPort);
 			RemoteAddress = remoteAddress;
+			Name = null;
+		}
+
+		public Contact(string remotePort, string localPort, string remoteAddress, string name)
+		{
+			RemotePort = Int32.Parse(remotePort);
+			LocalPort = Int32.Parse(localPort);
+			RemoteAddress = remoteAddress;
+			Name = name;
 		}
 
 		private string name;
