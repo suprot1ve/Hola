@@ -33,9 +33,9 @@
         </ListBox>
         
         <!-- Button for add contact -->
-        <Button Grid.Column="0" Grid.Row="4" IsEnabled="False" Name="btnAddContact" Content="Add Contact" Margin="5"/>
+        <Button Grid.Column="0" Grid.Row="4" Name="btnAddContact" Content="Add Contact" Margin="5"/>
         
-        <!-- Labes -->
+        <!-- Labels -->
         <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Port for send" Margin="5"/>
         <TextBlock Grid.Row="0" Grid.Column="2" TextAlignment="Center" Text="Port for receive" Margin="5"/>
         <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Center" Text="IP for send" Margin="5"/>

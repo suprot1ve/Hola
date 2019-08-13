@@ -35,7 +35,6 @@ namespace Hola
 				isConnected = true;
 				btnSend.IsEnabled = true;
 				tbMessage.IsEnabled = true;
-				btnAddContact.IsEnabled = true;
 				lbChat.Items.Add($"Hi {userName}! You joined to chat!");
 				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
 				SendMessage("joined to chat");
@@ -86,7 +85,6 @@ namespace Hola
 				isConnected = false;
 				btnSend.IsEnabled = false;
 				tbMessage.IsEnabled = false;
-				btnAddContact.IsEnabled = false;
 				receptionIsWorked = false;
 				lbChat.Items.Add("Diconnected!");
 				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
