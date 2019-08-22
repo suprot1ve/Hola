@@ -3,16 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Hola"
         mc:Ignorable="d"
-        SizeToContent="WidthAndHeight"
-        MinHeight="100" MinWidth="200" WindowStartupLocation="CenterScreen">
-    <StackPanel>
-        
-        <TextBlock Text="Enter your name:" TextAlignment="Center" Margin="5"/>
-        <TextBox Name="tbName" TextAlignment="Center" Margin="5"/>
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"      
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="hand.png"
+        MinHeight="110" MinWidth="200" MaxHeight="110" MaxWidth="200"
+        WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" 
+        BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="10">
+        <TextBox Name="tbName" TextAlignment="Center" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Enter your name" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
 
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <Button IsDefault="True" MinWidth="60" Margin="5" Click="OK_Click">OK</Button>
             <Button IsCancel="True" MinWidth="60" Margin="5">Cancel</Button>
         </StackPanel>

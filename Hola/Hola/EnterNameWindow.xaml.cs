@@ -17,5 +17,7 @@ namespace Hola
 			UserName = tbName.Text;
 			DialogResult = true;
 		}
+
+		private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => DragMove();
 	}
 }

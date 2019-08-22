@@ -14,5 +14,7 @@ namespace Hola
 		}
 
 		private void OK_Click(object sender, RoutedEventArgs e) => DialogResult = true;
+
+		private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e) => DragMove();
 	}
 }

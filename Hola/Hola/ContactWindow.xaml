@@ -3,39 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Hola"
         mc:Ignorable="d"
-        Title="Contact" SizeToContent="WidthAndHeight"
-        MinHeight="300" MinWidth="300" WindowStartupLocation="CenterScreen">
-    <Grid>
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"      
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="hand.png"
+        WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MinHeight="250" MinWidth="300" MaxHeight="250" MaxWidth="300"
+        BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1"
+        WindowStartupLocation="CenterScreen" >
+    <Grid Margin="10">
         
-        <!-- Rows and Columns Definitions-->
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition  Width="2*"/>
-        </Grid.ColumnDefinitions>
         
-        <!-- Labels -->
-        <TextBlock Text="Name contact" Grid.Row="0" Margin="5"/>
-        <TextBlock Text="Port for send" Grid.Row="1" Margin="5"/>
-        <TextBlock Text="Port for receive" Grid.Row="2" Margin="5"/>
-        <TextBlock Text="IP for send" Grid.Row="3" Margin="5"/>
-
         <!-- Input data for contact -->
-        <TextBox Text="{Binding Name}" Grid.Column="1" Grid.Row="0" Margin="5"/>
-        <TextBox Text="{Binding RemotePort}" Grid.Column="1" Grid.Row="1" Margin="5"/>
-        <TextBox Text="{Binding LocalPort}" Grid.Column="1" Grid.Row="2" Margin="5"/>
-        <TextBox Text="{Binding RemoteAddress}" Grid.Column="1" Grid.Row="3" Margin="5"/>
-
+        <StackPanel Grid.Row="0">
+            <TextBox TextAlignment="Center" Text="{Binding Name}" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Name" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            <TextBox TextAlignment="Center" Text="{Binding RemotePort}" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Port for send" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            <TextBox TextAlignment="Center" Text="{Binding LocalPort}" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Port for receive" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+            <TextBox TextAlignment="Center" Text="{Binding RemoteAddress}" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Ip for send" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+        </StackPanel>
+        
         <!-- Buttons -->
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button IsDefault="True" MinWidth="60" Margin="5" Click="OK_Click">OK</Button>
             <Button IsCancel="True" MinWidth="60" Margin="5">Cancel</Button>
         </StackPanel>
