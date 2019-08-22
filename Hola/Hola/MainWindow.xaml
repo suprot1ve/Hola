@@ -3,10 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Hola"
         mc:Ignorable="d"
-        Title="Hola" SizeToContent="WidthAndHeight"
-        MinWidth="800" MinHeight="400" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"      
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize" Icon="hand.png"
+        WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MinWidth="800" MinHeight="500" MaxWidth="800" MaxHeight="500"
+        WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid>
         
         <!-- Rows and Columns Definitions-->
@@ -17,7 +23,7 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="1.8*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -26,44 +32,92 @@
         </Grid.ColumnDefinitions>
         
         <!-- Contacts -->
-        <ListBox Name="lbContacts" ItemsSource="{Binding}"
-                 Grid.Column="0" Grid.RowSpan="3" HorizontalContentAlignment="Center" Margin="5" PreviewMouseLeftButtonDown="lbContacts_PreviewMouseLeftButtonDown">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}"/>
-                        <TextBlock Text="{Binding RemotePort}" FontSize="10"/>
-                        <TextBlock Text="{Binding LocalPort}" FontSize="10"/>
-                        <TextBlock Text="{Binding RemoteAddress}" FontSize="10"/>
-                        <Button Name="btnConnectContact" Content="Chating" Click="btnConnectContact_Click"/>
-                        <Button Name="btnEdit" Content="Edit" Click="btnEdit_Click"/>
-                        <Button Name="btnDelete" Content="Delete" Click="btnDelete_Click"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Border  Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+                Margin="5" BorderThickness="0.8" CornerRadius="6"
+                 BorderBrush="{StaticResource PrimaryHueDarkBrush}">
+            <ListBox Name="lbContacts" ItemsSource="{Binding}"
+                     Grid.Column="0" Grid.RowSpan="3" 
+                     HorizontalContentAlignment="Stretch" Margin="5" 
+                     PreviewMouseLeftButtonDown="lbContacts_PreviewMouseLeftButtonDown">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0.5" CornerRadius="6" 
+                                BorderBrush="{StaticResource PrimaryHueDarkBrush}">
+                            <StackPanel Margin="5" HorizontalAlignment="Stretch">
+                                <TextBlock Text="{Binding Name}" FontSize="18" HorizontalAlignment="Center" />
+                                
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding RemotePort}" FontSize="12" Margin="5" />
+                                    <TextBlock Text="{Binding LocalPort}" FontSize="12"  Margin="5" />
+                                    <TextBlock Text="{Binding RemoteAddress}" FontSize="12"  Margin="5" />
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="btnConnectContact" Click="btnConnectContact_Click"
+                                        Style="{StaticResource MaterialDesignFlatButton}">
+                                        <materialDesign:PackIcon Kind="ChatOutline" Width="20" Height="20"/>
+                                     </Button>
+                                    <Button Name="btnEdit" Click="btnEdit_Click"
+                                         Style="{StaticResource MaterialDesignFlatButton}">
+                                         <materialDesign:PackIcon Kind="SettingsOutline" Width="20" Height="20"/>
+                                        </Button>
+                                    <Button Name="btnDelete" Click="btnDelete_Click"
+                                         Style="{StaticResource MaterialDesignFlatButton}">
+                                         <materialDesign:PackIcon Kind="DeleteForeverOutline" Width="20" Height="20"/>
+                                    </Button>
+                                 </StackPanel>
+                                
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
 
         <!-- Button for add contact -->
         <Button Grid.Column="0" Grid.Row="4" Name="btnAddContact" Content="Add Contact" Margin="5" Click="btnAddContact_Click"/>
         
-        <!-- Labels -->
-        <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Center" Text="Port for send" Margin="5"/>
-        <TextBlock Grid.Row="0" Grid.Column="2" TextAlignment="Center" Text="Port for receive" Margin="5"/>
-        <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Center" Text="IP for send" Margin="5"/>
-        <TextBlock Grid.Row="0" Grid.Column="4" TextAlignment="Center" Text="Your name" Margin="5"/>
-
+        <!-- Top menu -->
+        <Grid Grid.Row="0" Grid.ColumnSpan="6"
+              Background="{StaticResource PrimaryHueDarkBrush}">
+            <Image Grid.Row="0" Grid.Column="0" Source="hola.png" HorizontalAlignment="Left" Margin="10" />
+            <StackPanel Grid.Row="0" Grid.Column="5" Background="{StaticResource PrimaryHueDarkBrush}"
+            Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Margin="10" Style="{StaticResource MaterialDesignFlatButton}" 
+                        Background="{DynamicResource MaterialDesignPaper}" Click="Button_Click">
+                    <materialDesign:PackIcon Kind="CloseBoxesOutline" />
+                </Button>
+            </StackPanel>
+        </Grid>
         <!-- Input data for connect -->
-        <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Name="tbRemotePort" Margin="5"/>
-        <TextBox Grid.Row="1" Grid.Column="2" TextAlignment="Center" Name="tbLocalPort" Margin="5"/>
-        <TextBox Grid.Row="1" Grid.Column="3" TextAlignment="Center" Name="tbRemoteAddress" Margin="5"/>
-        <TextBox Grid.Row="1" Grid.Column="4" TextAlignment="Center" Name="tbUserName" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" TextAlignment="Center" Name="tbRemotePort" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Port for send" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+        <TextBox Grid.Row="1" Grid.Column="2" TextAlignment="Center" Name="tbLocalPort" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Port for receive" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+        <TextBox Grid.Row="1" Grid.Column="3" TextAlignment="Center" Name="tbRemoteAddress" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Ip for send" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
+        <TextBox Grid.Row="1" Grid.Column="4" TextAlignment="Center" Name="tbUserName" Margin="5"
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            materialDesign:HintAssist.Hint="Your name" 
+            Foreground="{StaticResource PrimaryHueDarkBrush}"/>
         <Button Grid.Row="1" Grid.Column="5" Name="btnConDiscon" Content="Connect" Margin="5" Click="btnConDiscon_Click"/>
 
         <!-- List for show messages-->
-        <ListBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" Name="lbChat" Margin="5"/>
-
+        <Border Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="5"
+                Margin="5" BorderThickness="0.8" CornerRadius="6"
+                BorderBrush="{StaticResource PrimaryHueDarkBrush}">
+            <ListBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" 
+                     Name="lbChat" Margin="5" />
+        </Border>
+        
         <!-- Tools for send messages-->
-        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbMessage" IsEnabled="False" Margin="5" KeyDown="tbMessage_KeyDown"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Name="tbMessage" FontSize="16" IsEnabled="False" Margin="5" KeyDown="tbMessage_KeyDown"/>
         <Button Grid.Row="3" Grid.Column="5" Name="btnSend" Content="Send" IsEnabled="False" Margin="5" Click="btnSend_Click"/>
     </Grid>
 </Window>

@@ -73,13 +73,15 @@ namespace Hola
 		private void ResetInputData()
 		{
 			currentContact = null;
-			tbRemotePort.Text = "Enter port";
-			tbLocalPort.Text = "Enter port";
+			tbRemotePort.Text = null;
+			tbLocalPort.Text = null;
 			string[] comandLineArgs = Environment.GetCommandLineArgs();
 			if (comandLineArgs.Length != 1)
 				tbRemoteAddress.Text = comandLineArgs[1];
+			else
+				tbRemoteAddress.Text = null;
 			userName = String.Empty;
-			tbUserName.Text = "Enter name";
+			tbUserName.Text = null;
 
 		}
 
@@ -203,7 +205,7 @@ namespace Hola
 		{
 			try
 			{
-				Contact contact;
+				Contact contact = new Contact();
 				ContactWindow contactWindow;
 				if (currentContact != null)
 					contactWindow = new ContactWindow(currentContact);
@@ -211,7 +213,10 @@ namespace Hola
 					contactWindow = new ContactWindow(new Contact());
 				if (contactWindow.ShowDialog() == true)
 				{
-					contact = contactWindow.Contact;
+					contact.LocalPort = contactWindow.Contact.LocalPort;
+					contact.RemotePort = contactWindow.Contact.RemotePort;
+					contact.RemoteAddress = contactWindow.Contact.RemoteAddress;
+					contact.Name = contactWindow.Contact.Name;
 					db.Contacts.Add(contact);
 					db.SaveChanges();
 				}
@@ -337,6 +342,17 @@ namespace Hola
 				lbChat.Items.Add(ex.StackTrace);
 				lbChat.ScrollIntoView(lbChat.Items[lbChat.Items.Count - 1]);
 			}
+		}
+
+		private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			DragMove();
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			receptionIsWorked = false;
+			Close();
 		}
 	}
 }
